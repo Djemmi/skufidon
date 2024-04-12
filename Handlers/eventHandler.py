@@ -7,7 +7,11 @@ class eventHandler:
 
     def handleEvents(self, events):
         for event in events:
-            self.eventList[event]()
+            try:
+                self.eventList[event.type]()
+            except:
+                # print(events)
+                print("An error occured in event handler")
 
     def register(self, function, event):
         self.eventList[event] = function

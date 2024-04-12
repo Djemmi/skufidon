@@ -2,6 +2,7 @@ import enum
 
 
 # Вас ебать не должно как оно работает, если работает просто пользуйтесь
+
 class Color(enum.Enum):
     RED = (255, 0, 0)
     GREEN = (0, 255, 0)
@@ -11,3 +12,6 @@ class Color(enum.Enum):
     YELLOW = (255, 255, 0)
     CYAN = (0, 255, 255)
     MAGENTA = (255, 0, 255)
+
+
+
