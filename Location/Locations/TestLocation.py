@@ -5,14 +5,12 @@ from Location.Location import Location
 class TestLocation(Location):
 
     def __init__(self):
-        self.texture = "Location/Locations/textures/fixed_workjpg.jpg"
+        self.name = "Test"
+        self.texture = "Location/Locations/textures/vasserman.jpg"
 
         self.obstacles.append(Tree(130, 95))
         self.obstacles.append(Tree(190, 95))
 
         self.obstacles.append(Tree(100, 100))
         self.obstacles.append(Tree(160, 100))
-
-
-        print("Test location inited")
 

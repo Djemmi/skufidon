@@ -5,7 +5,7 @@ from pygame import Surface, SurfaceType
 
 
 class Obstacle:
-    def __init__(self, name: str, pos: tuple, width: int, height: int, textures: dict, isAnimated=False):
+    def __init__(self, name: str, pos: tuple, textures: dict, isAnimated=False, animationLastFrame=0):
         # TODO probably add field like "passable" to make possible to create intangible objects
         self.name = name
         self.isAnimated = isAnimated
@@ -13,13 +13,10 @@ class Obstacle:
         # Shitty thing, means number of animation texture number curr playing
         self.animationFrame = 0
         # TODO make it as constructor parameter
-        self.animationLastFrame = 1
+        self.animationLastFrame = animationLastFrame
 
         self.pos_x = pos[0]
         self.pos_y = pos[1]
-
-        self.width = width
-        self.height = height
 
         if len(textures) < 1:
             print("MISSING TEXTURE OF " + name + " OBJECT")
@@ -28,6 +25,9 @@ class Obstacle:
             print("Object texture loaded for " + name)
             self.textures = textures
         self.currentTexture = pygame.image.load(self.textures.get('default'))
+
+        self.width = self.currentTexture.get_width()
+        self.height = self.currentTexture.get_height()
 
     def playAnimation(self):
         if not self.isAnimated:
@@ -42,8 +42,6 @@ class Obstacle:
             else:
                 self.animationFrame += 1
                 self.currentTexture = pygame.image.load(self.textures.get('animation_' + str(self.animationFrame)))
-
-
 
     # getters & setters
 
