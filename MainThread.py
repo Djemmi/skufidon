@@ -3,6 +3,7 @@ import logging
 import screeninfo
 
 from Entities.Entities.Player import Player
+# from Entities.Entities.Player import Player
 from Handlers.eventHandler import eventHandler
 from Handlers.locaitonHandler import locationHandler
 from Location.Locations.Limbo import Limbo
@@ -11,7 +12,7 @@ from enums.Colors import Color
 import OldPlayer
 
 
-# TODO HUGE FUCKING TODO, REMOVE THIS CLASS
+# TODO HUGE FUCKING TODO, REMOVE THIS CLASS prob idk we could just use instance from main but it sucks tbh
 class MainThread:
 
     def __init__(self):
@@ -53,7 +54,6 @@ class MainThread:
         self.initTextures()
         # main game loop
         while self.isRunning():
-            self.logger.info("GameTick")
             # this line have to be on top of this loop
             self.screen.fill((113, 169, 44))
             # TODO return background
@@ -75,13 +75,13 @@ class MainThread:
             for y in range(NET_GAP, self.screenHeight, NET_GAP):
                 pygame.draw.line(self.screen, Color.BLACK.value, (0, y), (self.screenWidth, y))
 
-            self.logger.info(self.currentLocation)
 
             for obj in self.currentLocation.getObstacles():
                 if obj.getCurrentTexture() is None:
                     self.logger.info("Missing texture for object " + obj.getName())
                     break
                 obj.playAnimation()
+                # scaled_texture = pygame.transform.scale(obj.getCurrentTexture(), (1000, 1000))
                 self.screen.blit(obj.getCurrentTexture(), obj.getPos())
                 # Draw hit-boxes, comment if you don't need this
                 pygame.draw.line(self.screen, Color.RED.value, (obj.getX(), obj.getY()),
@@ -92,7 +92,7 @@ class MainThread:
                                  (obj.getX() + obj.getWidth(), obj.getY() + obj.getHeight()))
                 pygame.draw.line(self.screen, Color.RED.value, (obj.getX() + obj.getWidth(), obj.getY()),
                                  (obj.getX() + obj.getWidth(), obj.getY() + obj.getHeight()))
-
+            self.screen.blit(self.player.getCurrentTexture(), (self.player.getX(), self.player.getY()))
             pygame.draw.circle(self.screen, (0, 0, 255), self.oldplayer.getPosition(), 25, 2)
 
             # these lines are last, don't change that
