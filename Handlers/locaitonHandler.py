@@ -13,3 +13,22 @@ class locationHandler:
 
     def getCurrentLocation(self):
         return self.currentLocation
+
+    def getRightLocation(self, currentLocation: Location):
+        if isinstance(currentLocation, Limbo):
+            return self.Limbo
+
+    def getLeftLocation(self, currentLocation: Location):
+        if isinstance(currentLocation, Limbo):
+            return self.Limbo
+
+    def getTopLocation(self, currentLocation: Location):
+        if isinstance(currentLocation, Limbo):
+            return self.Limbo
+        if isinstance(currentLocation, TestLocation):
+            return self.Limbo
+
+    def getBottomLocation(self, currentLocation: Location):
+        if isinstance(currentLocation, Limbo):
+            return self.Limbo
+

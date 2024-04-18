@@ -6,7 +6,7 @@ class TestLocation(Location):
 
     def __init__(self):
         self.name = "Test"
-        self.texture = "Location/Locations/textures/cat.jpg"
+        self.texture = "Location/Locations/textures/vasserman.jpg"
 
         self.obstacles.append(Tree(130, 95))
         self.obstacles.append(Tree(190, 95))

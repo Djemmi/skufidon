@@ -23,7 +23,7 @@ class Entity():
     def moveRelative(self, relativeCoordinates: tuple, obstacles):
 
         next_x = self.pos_x + relativeCoordinates[0]
-        next_y = self.pos_y + relativeCoordinates[0]
+        next_y = self.pos_y + relativeCoordinates[1]
 
         for obstacle in obstacles:
             if obstacle.getX() < next_x < obstacle.getX() + obstacle.getWidth():

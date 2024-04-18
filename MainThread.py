@@ -9,7 +9,6 @@ from Handlers.locaitonHandler import locationHandler
 from Location.Locations.Limbo import Limbo
 from Location.Locations.TestLocation import TestLocation
 from enums.Colors import Color
-import OldPlayer
 
 
 # TODO HUGE FUCKING TODO, REMOVE THIS CLASS prob idk we could just use instance from main but it sucks tbh
@@ -35,7 +34,6 @@ class MainThread:
         self.screenHeight = screeninfo.get_monitors()[0].height
         self.screen = pygame.display.set_mode((800, 600))  # TODO work with screen resolution
         self.clock = pygame.time.Clock()  # what do we need this for
-        self.oldplayer = OldPlayer.Player(self.screen.get_width() // 2, self.screen.get_height() // 2)
         self.player = Player((self.screen.get_width() // 2, self.screen.get_width() // 2))
 
 
@@ -50,6 +48,7 @@ class MainThread:
         self.currentLocationTexture = pygame.image.load(self.currentLocation.texture)
 
     def startGame(self):
+
         self.preInit()
         self.initTextures()
         # main game loop
@@ -57,7 +56,7 @@ class MainThread:
             # this line have to be on top of this loop
             self.screen.fill((113, 169, 44))
             # TODO return background
-            # self.screen.blit(self.currentLocationTexture, (0, 0))
+            self.screen.blit(self.currentLocationTexture, (0, 0))
 
             events = pygame.event.get()
             pressed_keys = pygame.key.get_pressed()
@@ -65,8 +64,8 @@ class MainThread:
             # Handling all information in other classes
             self.eventHandler.register(self.stopGame, pygame.QUIT)
             self.eventHandler.handleEvents(events)
-            self.oldplayer.handleActions(pressed_keys, self.currentLocation.getObstacles(),
-                                         (self.screen.get_width(), self.screen.get_height()))
+            self.player.handleActions(pressed_keys, self.currentLocation.getObstacles(),
+                                      (self.screen.get_width(), self.screen.get_height()))
 
             NET_GAP = 32
             # Draw objects here
@@ -93,7 +92,6 @@ class MainThread:
                 pygame.draw.line(self.screen, Color.RED.value, (obj.getX() + obj.getWidth(), obj.getY()),
                                  (obj.getX() + obj.getWidth(), obj.getY() + obj.getHeight()))
             self.screen.blit(self.player.getCurrentTexture(), (self.player.getX(), self.player.getY()))
-            pygame.draw.circle(self.screen, (0, 0, 255), self.oldplayer.getPosition(), 25, 2)
 
             # these lines are last, don't change that
             pygame.display.flip()
