@@ -1,8 +1,7 @@
 import pygame
 
 
-class Entity():
-
+class Entity:
     def __init__(self, name, positon: tuple, textures: dict):
         self.name = name
 
@@ -26,9 +25,15 @@ class Entity():
         next_y = self.pos_y + relativeCoordinates[1]
 
         for obstacle in obstacles:
-            if obstacle.getX() < next_x < obstacle.getX() + obstacle.getWidth():
-                if obstacle.getY() < next_y < obstacle.getY() + obstacle.getHeight():
+            if obstacle.getX() < next_x < obstacle.getX() + obstacle.getWidth() or obstacle.getX() < next_x + self.getWidth() < obstacle.getX() + obstacle.getWidth():
+                if obstacle.getY() < next_y < obstacle.getY() + obstacle.getHeight() or obstacle.getY() < next_y + self.getHeight() < obstacle.getY() + obstacle.getHeight():
                     return
+            # TODO tryna add check if obstacle side is smaller than player's so player wont move throw it
+            # мне пизедец как лень это фиксить, как будет больше пива может быть
+            # if self.getWidth() > obstacle.getWidth() or self.getHeight() < obstacle.getHeight():
+            #     return
+            # if obstacle.getY() > self.getY() or obstacle.getY() + obstacle.getHeight() < self.getY() + self.getHeight() and obstacle.getX() > self.getX() or obstacle.getX() + obstacle.getWidth() < self.getX() + self.getWidth():
+            #     return
 
         self.pos_x = next_x
         self.pos_y = next_y

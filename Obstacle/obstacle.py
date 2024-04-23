@@ -15,8 +15,8 @@ class Obstacle:
         # TODO make it as constructor parameter
         self.animationLastFrame = animationLastFrame
 
-        self.pos_x = pos[0]
-        self.pos_y = pos[1]
+        self.pos_x = pos[0] * pygame.display.get_surface().get_width() / 1024
+        self.pos_y = pos[1] * pygame.display.get_surface().get_height() / 768
 
         if len(textures) < 1:
             print("MISSING TEXTURE OF " + name + " OBJECT")
@@ -48,20 +48,20 @@ class Obstacle:
     def getRect(self) -> pygame.Rect:
         return pygame.Rect((self.pos_x, self.pos_y), (self.width, self.height))
 
-    def getX(self) -> int:
-        return self.pos_x
+    def getX(self):
+        return self.pos_x * (pygame.display.get_surface().get_width() / 1024)
 
-    def getY(self) -> int:
-        return self.pos_y
+    def getY(self):
+        return self.pos_y * (pygame.display.get_surface().get_height() / 768)
 
     def getPos(self) -> tuple:
-        return self.pos_x, self.pos_y
+        return self.getX(), self.getY()
 
-    def getHeight(self) -> int:
-        return self.height
+    def getHeight(self):
+        return self.height * (pygame.display.get_surface().get_height() / 768)
 
-    def getWidth(self) -> int:
-        return self.width
+    def getWidth(self):
+        return self.width * (pygame.display.get_surface().get_width() / 1024)
 
     def getName(self):
         return self.name
@@ -75,5 +75,5 @@ class Obstacle:
             return None
         return self.currentTexture
 
-    def isAnimated(self):
+    def hasAnimation(self):
         return self.isAnimated

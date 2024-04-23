@@ -6,29 +6,46 @@ from Location.Locations.TestLocation import TestLocation
 class locationHandler:
 
     def __init__(self):
-        self.Limbo = Limbo()
-        self.Testlocaton = TestLocation()
+        self.locations: dict = {
+            "Limbo": Limbo(),
+            "TestLocation": TestLocation()
+        }
 
-        self.currentLocation = self.Limbo
+        self.currentLocation: Location = self.locations.get("TestLocation")
 
-    def getCurrentLocation(self):
+    def getCurrentLocationName(self):
+        return self.currentLocation.getName()
+
+    def getCurrentLocation(self) -> Location:
         return self.currentLocation
 
-    def getRightLocation(self, currentLocation: Location):
-        if isinstance(currentLocation, Limbo):
-            return self.Limbo
+    def getRightLocation(self):
+        if self.currentLocation.getName() == "Limbo":
+            return self.locations.get("TestLocation")
+        return self.locations.get("Limbo")
 
-    def getLeftLocation(self, currentLocation: Location):
-        if isinstance(currentLocation, Limbo):
-            return self.Limbo
+    def getLeftLocation(self):
+        if self.currentLocation.getName() == "Limbo":
+            return self.locations.get("Limbo")
+        if self.currentLocation.getName() == "TestLocation":
+            return self.locations.get("Limbo")
+        return self.locations.get("Limbo")
 
-    def getTopLocation(self, currentLocation: Location):
-        if isinstance(currentLocation, Limbo):
-            return self.Limbo
-        if isinstance(currentLocation, TestLocation):
-            return self.Limbo
+    def getTopLocation(self):
+        if self.currentLocation.getName() == "Limbo":
+            return self.locations.get("Limbo")
+        if self.currentLocation.getName() == "TestLocation":
+            return self.locations.get("Limbo")
+        return self.locations.get("Limbo")
 
-    def getBottomLocation(self, currentLocation: Location):
-        if isinstance(currentLocation, Limbo):
-            return self.Limbo
+    def getBottomLocation(self):
+        if self.currentLocation.getName() == "Limbo":
+            return self.locations.get("Limbo")
+        return self.locations.get("Limbo")
+
+    def getLocationByName(self, name: str) -> Location:
+        return self.locations.get(name)
+
+    def setCurrentLocation(self, newLocation: str):
+        self.currentLocation = self.locations.get(newLocation)
 

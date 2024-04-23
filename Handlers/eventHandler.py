@@ -10,8 +10,8 @@ class eventHandler:
             try:
                 self.eventList[event.type]()
             except Exception as e:
-                # print(events)
-                print(f"An error {e} occured in event handler")
+                pass
+                # print(f"An error {e} occured in event handler")
 
     def register(self, function, event):
         self.eventList[event] = function

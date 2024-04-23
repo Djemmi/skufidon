@@ -1,5 +1,6 @@
 import pygame.image
 from Entities.Entity import Entity
+from Handlers.locaitonHandler import locationHandler
 
 
 class Player(Entity):
@@ -34,9 +35,9 @@ class Player(Entity):
         super().__init__("Player", position, {})
         self.animation_tick = 1
         self.animation_cooldown = 8
-        self.width = 14
-        self.height = 16
-        # self.locationHandler = main.locationHandler
+        self.width = 14 * 2
+        self.height = 16 * 2
+        self.locationHandler = locationHandler()
         self.currentTexture = pygame.transform.scale(pygame.image.load(self.bottom.get(1)), (28, 32))
 
     def getCurrentTexture(self):
@@ -46,6 +47,11 @@ class Player(Entity):
     # TODO improve storing of textures and how it changes
     def handleActions(self, pressed_keys, obstacles, screenSize):
         # print(f"player x: {self.pos_x}  y:{self.pos_y}")
+
+        # Короче прикол таков, нужно мувмент чтобы был не 1 пиксель в тик а % от мапы в тик
+        # self.pos_x *= pygame.display.get_surface().get_width() / 1024
+        # self.pos_y *= pygame.display.get_surface().get_height() / 768
+
         self.animation_cooldown -= 1
         if self.animation_cooldown == 0:
             self.animation_cooldown = 8
@@ -53,6 +59,10 @@ class Player(Entity):
 
         if self.animation_tick > 4:
             self.animation_tick = 1
+
+        if(not pressed_keys[pygame.K_w] and not pressed_keys[pygame.K_a] and not pressed_keys[pygame.K_s] and not pressed_keys[pygame.K_d]):
+            self.currentTexture = pygame.image.load(self.bottom.get(1))
+            return
 
         if pressed_keys[pygame.K_w]:
             self.currentTexture = pygame.image.load(self.top.get(self.animation_tick))
@@ -68,15 +78,21 @@ class Player(Entity):
             self.moveRelative((1, 0), obstacles)
 
         if self.pos_x < 0:
+            self.locationHandler.setCurrentLocation(self.locationHandler.getLeftLocation().getName())
             print("reached LEFT end")
-            # self.locationHandler.getLeftLocation(self.locationHandler.getCurrentLocation())
             self.pos_x = screenSize[0] - self.width * 2
         if self.pos_x + self.width * 2 > screenSize[0]:  # REDO
+            self.locationHandler.setCurrentLocation(self.locationHandler.getRightLocation().getName())
             print("reached RIGHT end")
             self.pos_x = 0
         if self.pos_y < 0:
+            self.locationHandler.setCurrentLocation(self.locationHandler.getTopLocation().getName())
             print("reached TOP end")
             self.pos_y = screenSize[1] - self.height * 2
         if self.pos_y + self.height * 2 > screenSize[1]:  # REDO
+            self.locationHandler.setCurrentLocation(self.locationHandler.getBottomLocation().getName())
             print("reached BOTTOM end")
             self.pos_y = 0
+
+    def getLocationHandler(self):
+        return self.locationHandler
