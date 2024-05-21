@@ -10,7 +10,7 @@ class Entity:
         self.width = 0
         self.height = 0
 
-        # Technically, I should use sth between obstacle and entity classes but fuck you I don't care
+        # Technically, I should use sth between obstacle and entity classes but fuck you I club't care
         if len(textures) < 1:
             print("MISSING DEFAULT TEXTURE OF " + name + " ENTITY")
             self.textures = {"default": "Obstacle/Obstacles/textures/missingTexutre.png"}

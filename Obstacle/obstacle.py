@@ -15,8 +15,8 @@ class Obstacle:
         # TODO make it as constructor parameter
         self.animationLastFrame = animationLastFrame
 
-        self.pos_x = pos[0] * pygame.display.get_surface().get_width() / 1024
-        self.pos_y = pos[1] * pygame.display.get_surface().get_height() / 768
+        self.pos_x = pos[0]
+        self.pos_y = pos[1]
 
         if len(textures) < 1:
             print("MISSING TEXTURE OF " + name + " OBJECT")
@@ -49,19 +49,19 @@ class Obstacle:
         return pygame.Rect((self.pos_x, self.pos_y), (self.width, self.height))
 
     def getX(self):
-        return self.pos_x * (pygame.display.get_surface().get_width() / 1024)
+        return self.pos_x
 
     def getY(self):
-        return self.pos_y * (pygame.display.get_surface().get_height() / 768)
+        return self.pos_y
 
     def getPos(self) -> tuple:
         return self.getX(), self.getY()
 
     def getHeight(self):
-        return self.height * (pygame.display.get_surface().get_height() / 768)
+        return self.height
 
     def getWidth(self):
-        return self.width * (pygame.display.get_surface().get_width() / 1024)
+        return self.width
 
     def getName(self):
         return self.name

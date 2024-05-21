@@ -1,3 +1,6 @@
+import pygame
+
+
 class eventHandler:
 
     def __init__(self):
@@ -6,6 +9,7 @@ class eventHandler:
         self.eventList = {}
 
     def handleEvents(self, events):
+
         for event in events:
             try:
                 self.eventList[event.type]()
